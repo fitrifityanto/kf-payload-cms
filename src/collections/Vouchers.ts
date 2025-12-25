@@ -1,51 +1,54 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 export const Vouchers: CollectionConfig = {
-  slug: 'vouchers',
+  slug: "vouchers",
+  access: {
+    read: () => true,
+  },
   admin: {
-    useAsTitle: 'kode',
-    group: 'E-Commerce',
+    useAsTitle: "kode",
+    group: "E-Commerce",
   },
   fields: [
     {
-      name: 'kode',
-      type: 'text',
+      name: "kode",
+      type: "text",
       required: true,
       unique: true,
     },
     {
-      type: 'row',
+      type: "row",
       fields: [
         {
-          name: 'diskon_persen',
-          type: 'number',
+          name: "diskon_persen",
+          type: "number",
           required: true,
         },
         {
-          name: 'min_belanja',
-          type: 'number',
+          name: "min_belanja",
+          type: "number",
           defaultValue: 0,
         },
       ],
     },
     {
-      type: 'row',
+      type: "row",
       fields: [
         {
-          name: 'mulai',
-          type: 'date',
+          name: "mulai",
+          type: "date",
           admin: {
             date: {
-              pickerAppearance: 'dayAndTime',
+              pickerAppearance: "dayAndTime",
             },
           },
         },
         {
-          name: 'berakhir',
-          type: 'date',
+          name: "berakhir",
+          type: "date",
           admin: {
             date: {
-              pickerAppearance: 'dayAndTime',
+              pickerAppearance: "dayAndTime",
             },
           },
         },
@@ -53,4 +56,4 @@ export const Vouchers: CollectionConfig = {
     },
   ],
   timestamps: true,
-}
+};
