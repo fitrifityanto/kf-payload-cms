@@ -15,11 +15,14 @@ import { Vouchers } from "./collections/Vouchers";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
+const allowedOrigins = [
+  "http://localhost:3001",
+  process.env.PAYLOAD_PUBLIC_FRONTEND_URL,
+].filter(Boolean) as string[];
+
 export default buildConfig({
-  cors: [
-    "http://localhost:3001", // Izinkan project katalog
-  ],
-  csrf: ["http://localhost:3001"],
+  cors: allowedOrigins,
+  csrf: allowedOrigins,
   admin: {
     user: Users.slug,
     importMap: {
