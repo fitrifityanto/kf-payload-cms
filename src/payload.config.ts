@@ -17,7 +17,7 @@ const dirname = path.dirname(filename);
 
 const allowedOrigins = [
   "http://localhost:3000",
-  process.env.PAYLOAD_PUBLIC_FRONTEND_URL,
+  process.env.PUBLIC_FRONTEND_URL,
 ].filter(Boolean) as string[];
 
 export default buildConfig({

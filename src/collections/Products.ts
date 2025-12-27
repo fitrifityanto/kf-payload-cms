@@ -1,4 +1,5 @@
 import type { CollectionConfig } from "payload";
+import { revalidateTag } from "./revalidateHelper";
 
 export const Products: CollectionConfig = {
   slug: "products",
@@ -62,4 +63,13 @@ export const Products: CollectionConfig = {
     },
   ],
   timestamps: true,
+  hooks: {
+    afterChange: [
+      ({ operation }) => {
+        if (operation === "update" || operation === "create") {
+          revalidateTag("products");
+        }
+      },
+    ],
+  },
 };
