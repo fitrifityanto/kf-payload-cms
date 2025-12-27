@@ -2,7 +2,8 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-postgres'
 
 export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   await db.execute(sql`
-   CREATE TABLE "users_sessions" (
+   CREATE TYPE "public"."enum_users_role" AS ENUM('admin', 'viewer');
+  CREATE TABLE "users_sessions" (
   	"_order" integer NOT NULL,
   	"_parent_id" uuid NOT NULL,
   	"id" varchar PRIMARY KEY NOT NULL,
@@ -12,8 +13,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   CREATE TABLE "users" (
   	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+  	"role" "enum_users_role" DEFAULT 'viewer' NOT NULL,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+  	"enable_a_p_i_key" boolean,
+  	"api_key" varchar,
+  	"api_key_index" varchar,
   	"email" varchar NOT NULL,
   	"reset_password_token" varchar,
   	"reset_password_expiration" timestamp(3) with time zone,
@@ -174,5 +179,6 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "payload_locked_documents_rels" CASCADE;
   DROP TABLE "payload_preferences" CASCADE;
   DROP TABLE "payload_preferences_rels" CASCADE;
-  DROP TABLE "payload_migrations" CASCADE;`)
+  DROP TABLE "payload_migrations" CASCADE;
+  DROP TYPE "public"."enum_users_role";`)
 }

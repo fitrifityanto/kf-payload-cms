@@ -101,6 +101,14 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
+        "role": {
+          "name": "role",
+          "type": "enum_users_role",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'viewer'"
+        },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp(3) with time zone",
@@ -114,6 +122,24 @@
           "primaryKey": false,
           "notNull": true,
           "default": "now()"
+        },
+        "enable_a_p_i_key": {
+          "name": "enable_a_p_i_key",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "api_key": {
+          "name": "api_key",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "api_key_index": {
+          "name": "api_key_index",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
         },
         "email": {
           "name": "email",
@@ -1313,7 +1339,16 @@
       "isRLSEnabled": false
     }
   },
-  "enums": {},
+  "enums": {
+    "public.enum_users_role": {
+      "name": "enum_users_role",
+      "schema": "public",
+      "values": [
+        "admin",
+        "viewer"
+      ]
+    }
+  },
   "schemas": {},
   "sequences": {},
   "roles": {},
@@ -1324,6 +1359,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "f15cc7d7-dcfd-4677-b6a3-db0f285847a4",
+  "id": "5005d2d8-13b9-4ee1-9f09-a5661cd62e02",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

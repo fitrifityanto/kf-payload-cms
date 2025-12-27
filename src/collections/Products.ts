@@ -3,7 +3,15 @@ import type { CollectionConfig } from "payload";
 export const Products: CollectionConfig = {
   slug: "products",
   access: {
-    read: () => true,
+    // Publik/Viewer boleh baca
+    read: ({ req: { user } }) => {
+      if (user?.role === "admin" || user?.role === "viewer") return true;
+      return false;
+    },
+    // Hanya admin yang bisa modifikasi
+    create: ({ req: { user } }) => user?.role === "admin",
+    update: ({ req: { user } }) => user?.role === "admin",
+    delete: ({ req: { user } }) => user?.role === "admin",
   },
   admin: {
     useAsTitle: "nama",
