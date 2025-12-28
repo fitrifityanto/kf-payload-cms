@@ -16,7 +16,7 @@ const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
 const allowedOrigins = [
-  "http://localhost:3000",
+  process.env.PUBLIC_PAYLOAD_URL,
   process.env.PUBLIC_FRONTEND_URL,
 ].filter(Boolean) as string[];
 
